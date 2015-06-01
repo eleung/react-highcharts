@@ -2,7 +2,8 @@ module.exports = {
   watch: true,
   entry: {
     index: './index.jsx',
-    more: './more.jsx'
+    more: './more.jsx',
+    '3d': './3d.jsx'
   },
   module: {
     loaders: [
