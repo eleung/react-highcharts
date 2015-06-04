@@ -73,23 +73,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    var config = this.props.config;
+	    var series = this.props.series;
 	    var node = this.refs.chart.getDOMNode();
 
 	    if (!config.chart) {
 	      config = update(config, {chart: {$set: {}}})
 	    }
 
-	    config = update(config, {chart: {renderTo: {$set: node}}});
+	    config = update(config, {series: {$set: series}, chart: {renderTo: {$set: node}}});
 
-	    new Highcharts.Chart(config);
+	    this.chart = new Highcharts.Chart(config);
+	  },
+
+	  updateChart: function() {
+	    var series = this.props.series;
+	     for (var i = 0; i < series.length; i++) {
+	       this.chart.series[i].setData(series[i].data);
+	     }
 	  },
 
 	  componentDidMount: function () {
 	    this.renderChart();
 	  },
+
 	  componentDidUpdate: function () {
-	    this.renderChart();
+	    this.updateChart();
 	  },
+
 	  render: function () {
 	    return React.createElement("div", {className: "chart", ref: "chart"})
 	  }
